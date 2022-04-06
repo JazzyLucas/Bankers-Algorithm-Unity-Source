@@ -47,7 +47,7 @@ public class Bankers
         return val;
     }
 
-    public List<string> DoEverything()
+    public List<string> DoEverything(int startIndex)
     {
         GetNeedMatrix(); //Asserts that this is calculated
         List<string> dialogue = new List<string>();
@@ -66,8 +66,9 @@ public class Bankers
                 break;
             killswitch++;
 
-            for (int i = 0; i < numberOfCustomers; i++)
+            for (int i = startIndex; i < numberOfCustomers; i++)
             {
+                startIndex = 0;
                 // Dialogue Formatting
                 string s = "Process " + i + " Needs:";
                 for (int j = 0; j < work.Length; j++)

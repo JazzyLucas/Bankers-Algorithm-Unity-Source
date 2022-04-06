@@ -28,12 +28,14 @@ public class UserInterfaceManager : MonoBehaviour
     [SerializeField] private Transform infoTextsParent;
     [SerializeField] private InputField inputFieldRows;
     [SerializeField] private InputField inputFieldColumns;
+    [SerializeField] private InputField inputFieldIndex;
 
     // Internals
     private Bankers bankers;
     private int rows = 4, columns = 4;
     private List<InputField> allocationMatrix, maxMatrix, availableMatrix, needMatrix;    // Disclaimer: I'm not truly object pooling, don't get fooled
     private List<GameObject> infoTexts;
+    private int index = 0;
 
     #region Unity Methods
 
@@ -99,19 +101,21 @@ public class UserInterfaceManager : MonoBehaviour
         }
         else
         {
-            List<int> random1 = new List<int>(25);
-            List<int> random2 = new List<int>(25);
-            List<int> random3 = new List<int>(5);
-            for (int i = 0; i < 25; i++)
+            int rows = (int)Random.Range(3, 6);
+            int columns = (int)Random.Range(3, 6);
+            List<int> random1 = new List<int>(rows*columns);
+            List<int> random2 = new List<int>(rows * columns);
+            List<int> random3 = new List<int>(columns);
+            for (int i = 0; i < rows * columns; i++)
             {
                 random1.Add((int)Random.Range(3, 10));
                 random2.Add((int)Random.Range(0, 6));
             }
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < columns; i++)
             {
                 random3.Add((int)Random.Range(0, 10));
             }
-            PopulateMatrices(5, 5,
+            PopulateMatrices(rows, columns,
                 random1,
                 random2,
                 random3);
@@ -140,6 +144,11 @@ public class UserInterfaceManager : MonoBehaviour
     {
         columns = InputFieldNum(inputFieldColumns);
         UpdateMatrixSizes();
+    }
+
+    public void UpdateIndex()
+    {
+        index = InputFieldNum(inputFieldIndex);
     }
 
     /// <summary>
@@ -173,7 +182,7 @@ public class UserInterfaceManager : MonoBehaviour
             }
         }
         Bankers bankers = new Bankers(available, maximum, allocation, rows, columns);
-        List<string> output = bankers.DoEverything();
+        List<string> output = bankers.DoEverything(index);
         List<int> need = bankers.GetNeedMatrix();
         DisplayOutput(output);
         PopulateNeedMatrix(need);
