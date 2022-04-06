@@ -104,7 +104,7 @@ public class Bankers
                     s += " Safe! ";
                     safeSequence.Add(i);
                 }
-                else if (visited >= numberOfCustomers - safeSequence.Count)
+                else if (visited > numberOfCustomers - safeSequence.Count)
                 {
                     broke = i+1;
                     break;
