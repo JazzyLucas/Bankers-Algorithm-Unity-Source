@@ -5,9 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 
 /// <summary>
-/// Listened to <see href="https://youtu.be/iPkASX1nKTs">this</see> constantly while I coded this in under 48 hours.
-/// <br></br>
-/// This uses the Bankers class to process everything.
+/// Everything
 /// </summary>
 /// 
 /// <author>
